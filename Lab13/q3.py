@@ -93,7 +93,7 @@ def question2():
     X_train, X_test, y_train, y_test = split_data(X, y)
 
     def model():
-        model = BaggingRegressor(estimator=RandomForestRegressor(), n_estimators=100, random_state=42)
+        model = BaggingRegressor(n_estimators=100, random_state=42)
         model.fit(X_train, y_train)
         y_pred = model.predict(X_test)
         r2 = r2_score(y_test, y_pred)
