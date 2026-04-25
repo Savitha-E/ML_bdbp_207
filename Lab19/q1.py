@@ -7,7 +7,7 @@
 # F1-score
 # Plot the ROC curve
 # AUC
-
+from matplotlib import pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler, LabelEncoder, OneHotEncoder
@@ -72,16 +72,28 @@ def evaluate_model(y_prob,y_test):
         precision= tp/(tp+fp)
         recall= tp/(tp+fn)
         sensitivity= tp/(tp+fn)
+        specificity= tn/(tn+fp)
         f1= 2*precision*recall/(precision+recall)
         print("The accuracy is",accuracy)
         print("The precision is",precision)
         print("The recall is",recall)
         print("The sensitivity is",sensitivity)
+        print("The specificity is",specificity)
         print("The F1 is",f1)
         print("==========================================================================")
 
 print(evaluate_model(y_prob,y_test))
 
+def plot_roc_curve(y_prob,y_test):
+    fpr, tpr, thresholds = roc_curve(y_test,y_prob)
+    plt.plot(fpr,tpr)
+    plt.plot([0,1],[0,1],'r--')
+    plt.xlabel('False Positive Rate')
+    plt.ylabel('True Positive Rate')
+    plt.title('Receiver operating characteristic')
+    plt.show()
+
+print(plot_roc_curve(y_prob,y_test))
 
 
 
